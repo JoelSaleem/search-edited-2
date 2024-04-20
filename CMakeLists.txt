@@ -13,10 +13,21 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(TARGET_NAME Search)
 
-# add_subdirectory(LightYearsEngine)
-# add_subdirectory(LightYearsGame)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenSSL REQUIRED)
+find_package(cpprestsdk REQUIRED)
 
 add_executable(${TARGET_NAME}   
     src/main.cpp
 )
 
+include_directories(${Boost_INCLUDE_DIR})
+include_directories(${OPENSSL_INCLUDE_DIR})
+
+target_link_libraries(${TARGET_NAME}
+  PRIVATE
+    cpprestsdk::cpprest
+    Boost::system
+    OpenSSL::SSL
+    OpenSSL::Crypto
+)
