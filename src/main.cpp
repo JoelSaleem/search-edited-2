@@ -19,15 +19,19 @@ int main()
     web::http::experimental::listener::http_listener listener(addr);
     listener.support(web::http::methods::GET, handle_get);
 
-    try {
+    try
+    {
         listener
             .open()
-            .then([&listener]() { ucout << "Starting to listen at: " << listener.uri().to_string() << std::endl; })
+            .then([&listener]()
+                  { ucout << "Starting to listen at: " << listener.uri().to_string() << std::endl; })
             .wait();
 
         std::string line;
         std::getline(std::cin, line);
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         std::cerr << "An error occurred: " << e.what() << std::endl;
     }
 
