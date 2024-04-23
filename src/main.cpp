@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
+#include "db/DBConn.h"
 
 void handle_get(web::http::http_request request)
 {
@@ -13,6 +14,11 @@ void handle_get(web::http::http_request request)
 
 int main()
 {
+    std::string host = "localhost";
+    std::string dbname = "mydatabase";
+    std::string user = "myuser";
+    std::string pass = "mypassword";
+    auto db = search::DBConn(host, dbname, user, pass);
     web::uri_builder uri(U("http://localhost:8080"));
     std::string addr = uri.to_uri().to_string();
 
