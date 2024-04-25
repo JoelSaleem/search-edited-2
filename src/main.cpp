@@ -36,6 +36,10 @@ void handle_post(web::http::http_request request)
     }
     else if (path == "/brand")
     {
+        pplx::task<web::json::value> body = request.extract_json();
+        auto brand = body.get()["name"];
+        std::cout << "brand: " << brand << std::endl;
+        
         web::json::value response_data;
         response_data[U("message")] = web::json::value::string(U("upserting brand"));
 
