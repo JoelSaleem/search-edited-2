@@ -40,6 +40,12 @@ add_executable(${TARGET_NAME}
     
     src/utils.cpp
     include/utils.h
+
+    include/brand/IBrandRepo.h
+    src/brand/BrandRepo.cpp
+    include/brand/BrandRepo.h
+    
+    include/brand/Brand.h
     
     src/db/DBConn.cpp
 )
