@@ -2,13 +2,33 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
 #include "db/DBConn.h"
+#include "utils.cpp"
 
 void handle_get(web::http::http_request request)
 {
 
-    std::string path = request.relative_uri().to_string();
+    std::string path = *utils::getPath(request.relative_uri().to_string());
+    std::cout << path << std::endl;
     if (path == "/hello")
     {
+        web::json::value response_data;
+        response_data[U("message")] = web::json::value::string(U("Hello, World!"));
+
+        request.reply(web::http::status_codes::OK, response_data);
+    }
+    else
+    {
+        request.reply(web::http::status_codes::NotFound);
+    }
+}
+
+void handle_post(web::http::http_request request)
+{
+    std::string path = request.relative_uri().to_string();
+    std::cout << path << std::endl;
+    if (path == "/hello")
+    {
+
         web::json::value response_data;
         response_data[U("message")] = web::json::value::string(U("Hello, World!"));
 
@@ -30,6 +50,7 @@ int main()
 
     web::http::experimental::listener::http_listener listener(addr);
     listener.support(web::http::methods::GET, handle_get);
+    listener.support(web::http::methods::POST, handle_post);
 
     try
     {
