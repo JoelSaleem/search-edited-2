@@ -46,3 +46,33 @@ TEST(UtilsTests, TwoValidQueryParams)
     EXPECT_EQ(x["k2"], "v2");
 }
 
+TEST(UtilsTests, NoSeparatorQP)
+{
+    EXPECT_THROW(utils::getQueryParams("/abc/123?k1=v1=k2=v2"), std::runtime_error);
+}
+
+TEST(UtilsTests, TooManyQuestionMarksQP)
+{
+    EXPECT_THROW(utils::getQueryParams("/abc/123?k1=v1?k2=v2"), std::runtime_error);
+}
+
+TEST(UtilsTests, TooManyAmperQP)
+{
+    EXPECT_THROW(utils::getQueryParams("/abc/123?k1&v1&k2=v2"), std::runtime_error);
+}
+
+TEST(UtilsTests, EmptyKey)
+{
+    EXPECT_THROW(utils::getQueryParams("/abc/123?&v1&k2=v2"), std::runtime_error);
+}
+
+TEST(UtilsTests, EmptyVal)
+{
+    EXPECT_THROW(utils::getQueryParams("/abc/123?k=v&k2="), std::runtime_error);
+}
+
+TEST(UtilsTests, EmptyValSecond)
+{
+    EXPECT_THROW(utils::getQueryParams("/abc/123?k=v&=val"), std::runtime_error);
+}
+

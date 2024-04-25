@@ -115,7 +115,7 @@ namespace utils
             }
         }
 
-        if (key != "" && val != "")
+        if (key != "")
         {
             validateAndAppend(key, val, *qp);
         }
