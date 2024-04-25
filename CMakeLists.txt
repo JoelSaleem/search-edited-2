@@ -8,6 +8,17 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(TARGET_NAME Search)
 
+
+include(FetchContent)
+
+FetchContent_Declare(
+  json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.10.5  # Specify the version you need
+)
+
+FetchContent_MakeAvailable(json)
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PQXX REQUIRED libpqxx)
 
@@ -39,4 +50,5 @@ target_link_libraries(${TARGET_NAME}
     OpenSSL::Crypto
     ${PQXX_LIBRARIES}
     ${PostgreSQL_LIBRARIES}
+    nlohmann_json::nlohmann_json
 )
