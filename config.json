@@ -1,0 +1,9 @@
+{
+    "COMMENT": "OBV IN PROD, DON'T COMMIT, BUT THIS WILL NEVER REACH PROD",
+    "database": {
+        "host": "localhost",
+        "dbname": "mydatabase",
+        "user": "myuser",
+        "pass": "mypassword"
+    }
+}

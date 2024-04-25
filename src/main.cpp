@@ -2,6 +2,7 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
 #include "db/DBConn.h"
+#include <nlohmann/json.hpp>
 
 void handle_get(web::http::http_request request)
 {
@@ -14,11 +15,16 @@ void handle_get(web::http::http_request request)
 
 int main()
 {
-    std::string host = "localhost";
-    std::string dbname = "mydatabase";
-    std::string user = "myuser";
-    std::string pass = "mypassword";
+    std::ifstream i("../config.json");
+    nlohmann::json j;
+    i >> j;
+
+    std::string host = j["database"]["host"];
+    std::string dbname = j["database"]["dbname"];
+    std::string user = j["database"]["user"];
+    std::string pass = j["database"]["pass"];
     auto db = search::DBConn(host, dbname, user, pass);
+    
     web::uri_builder uri(U("http://localhost:8080"));
     std::string addr = uri.to_uri().to_string();
 
