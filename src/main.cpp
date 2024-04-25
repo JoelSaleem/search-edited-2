@@ -5,18 +5,26 @@
 
 void handle_get(web::http::http_request request)
 {
-    ucout << "Received a GET request\n";
-    web::json::value response_data;
-    response_data[U("message")] = web::json::value::string(U("Hello, World!"));
 
-    request.reply(web::http::status_codes::OK, response_data);
+    std::string path = request.relative_uri().to_string();
+    if (path == "/hello")
+    {
+        web::json::value response_data;
+        response_data[U("message")] = web::json::value::string(U("Hello, World!"));
+
+        request.reply(web::http::status_codes::OK, response_data);
+    }
+    else
+    {
+        request.reply(web::http::status_codes::NotFound);
+    }
 }
 
 int main()
 {
-    
+
     auto db = search::DBConn::Get();
-    
+
     web::uri_builder uri(U("http://localhost:8080"));
     std::string addr = uri.to_uri().to_string();
 
