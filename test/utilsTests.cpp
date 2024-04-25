@@ -37,3 +37,12 @@ TEST(UtilsTests, NoQueryParams)
     EXPECT_TRUE(x.size() == 0);
 }
 
+TEST(UtilsTests, TwoValidQueryParams)
+{
+    auto x = *utils::getQueryParams("/abc/123?k1=v1&k2=v2");
+
+    EXPECT_TRUE(x.size() == 2);
+    EXPECT_EQ(x["k1"], "v1");
+    EXPECT_EQ(x["k2"], "v2");
+}
+

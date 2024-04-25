@@ -3,6 +3,23 @@
 
 namespace utils
 {
+    void validateAndAppend(std::string &key, std::string &val, std::unordered_map<std::string, std::string> &mapping)
+    {
+        if (val == "")
+        {
+            throw std::runtime_error("empty val");
+        }
+
+        if (key == "")
+        {
+            throw std::runtime_error("empty key");
+        }
+
+        mapping[key] = val;
+        key = "";
+        val = "";
+    }
+
     std::unique_ptr<std::string> getPath(const std::string &input)
     {
         if (input.size() == 0)
@@ -66,17 +83,7 @@ namespace utils
                 }
 
                 isKey = true;
-                if (val == "")
-                {
-                    throw std::runtime_error("empty val");
-                }
-
-                if (key == "")
-                {
-                    throw std::runtime_error("empty key");
-                }
-
-                (*qp)[key] = val;
+                validateAndAppend(key, val, *qp);
             }
             else if (input[i] == '=')
             {
@@ -93,18 +100,26 @@ namespace utils
             }
             else
             {
+                if (!startAcc)
+                {
+                    continue;
+                }
                 if (isKey)
                 {
                     key.push_back(input[i]);
                 }
                 else
                 {
-                    key.push_back(input[i]);
+                    val.push_back(input[i]);
                 }
             }
+        }
+
+        if (key != "" && val != "")
+        {
+            validateAndAppend(key, val, *qp);
         }
 
         return qp;
     }
 }
-
