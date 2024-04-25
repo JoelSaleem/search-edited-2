@@ -30,3 +30,10 @@ TEST(UtilsTests, NestedPathWithQueryParams)
     std::string path = *utils::getPath("/abc/myResource?key=val&key2=val2");
     EXPECT_EQ(path, "/abc/myResource");
 }
+
+TEST(UtilsTests, NoQueryParams)
+{
+    auto x = *utils::getQueryParams("/abc/123");
+    EXPECT_TRUE(x.size() == 0);
+}
+
