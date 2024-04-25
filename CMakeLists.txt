@@ -12,9 +12,7 @@ set(TARGET_NAME Search)
 enable_testing()
 add_subdirectory(extern/googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-add_executable(TestSuite test/test1.cpp)
-target_link_libraries(TestSuite gtest gtest_main)
-add_test(NAME GoogleTests COMMAND TestSuite)
+add_subdirectory(test)
 
 
 include(FetchContent)
@@ -39,6 +37,10 @@ find_package(cpprestsdk REQUIRED)
 
 add_executable(${TARGET_NAME}
     src/main.cpp
+    
+    src/utils.cpp
+    include/utils.h
+    
     src/db/DBConn.cpp
 )
 

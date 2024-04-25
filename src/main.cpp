@@ -2,7 +2,7 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
 #include "db/DBConn.h"
-#include "utils.cpp"
+#include "utils.h"
 
 void handle_get(web::http::http_request request)
 {
