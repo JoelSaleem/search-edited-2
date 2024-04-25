@@ -76,3 +76,13 @@ TEST(UtilsTests, EmptyValSecond)
     EXPECT_THROW(utils::getQueryParams("/abc/123?k=v&=val"), std::runtime_error);
 }
 
+TEST(UtilsTests, EmptyQP)
+{
+    EXPECT_THROW(utils::getQueryParams(""), std::runtime_error);
+}
+
+TEST(UtilsTests, QPNotStartingWithSlash)
+{
+    EXPECT_THROW(utils::getQueryParams("abc?qp=1&qp2=2"), std::runtime_error);
+}
+
