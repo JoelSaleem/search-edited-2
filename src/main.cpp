@@ -34,6 +34,13 @@ void handle_post(web::http::http_request request)
 
         request.reply(web::http::status_codes::OK, response_data);
     }
+    else if (path == "/brand")
+    {
+        web::json::value response_data;
+        response_data[U("message")] = web::json::value::string(U("upserting brand"));
+
+        request.reply(web::http::status_codes::OK, response_data);
+    }
     else
     {
         request.reply(web::http::status_codes::NotFound);
