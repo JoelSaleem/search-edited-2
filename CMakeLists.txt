@@ -8,6 +8,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(TARGET_NAME Search)
 
+# ctest
+enable_testing()
+add_subdirectory(extern/googletest)
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+add_executable(TestSuite test/test1.cpp)
+target_link_libraries(TestSuite gtest gtest_main)
+add_test(NAME GoogleTests COMMAND TestSuite)
+
 
 include(FetchContent)
 
