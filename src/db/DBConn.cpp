@@ -41,4 +41,12 @@ namespace search
             std::cerr << "Can't open database" << std::endl;
         }
     }
+
+    DBConn::~DBConn()
+    {
+        if (conn && conn->is_open())
+        {
+            conn->close();
+        }
+    }
 }

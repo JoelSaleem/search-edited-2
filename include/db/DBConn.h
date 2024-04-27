@@ -8,6 +8,7 @@ namespace search
     {
     public:
         static DBConn &Get();
+        ~DBConn();
 
     protected:
         DBConn(const std::string &host, const std::string &dbname, const std::string &user, const std::string &password);
